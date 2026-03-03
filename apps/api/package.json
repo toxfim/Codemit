@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "bun run ./src/index.ts",
     "build": "tsc",
-    "lint": "lint --fix"
+    "lint": "lint --fix",
+    "test": "bun test"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@codemit/configs": "workspace:*",
     "@codemit/shared": "workspace:*",
-    "lint": "^0.8.19"
+    "lint": "^0.8.19",
+    "@codemit/bot-api": "workspace:*"
   }
 }
