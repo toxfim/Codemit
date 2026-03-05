@@ -20,6 +20,7 @@ export default [
       ],
       "@typescript-eslint/consistent-type-imports": "error",
       "no-console": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
     },
   },
   {

@@ -14,13 +14,14 @@
   "license": "ISC",
   "packageManager": "pnpm@10.29.3",
   "dependencies": {
+    "@codemit/db": "workspace:*",
+    "@codemit/configs": "workspace:*",
+    "@codemit/shared": "workspace:*",
+    "@codemit/bot-api": "workspace:*",
     "@hono/node-server": "^1.19.9",
     "hono": "^4.12.3"
   },
   "devDependencies": {
-    "@codemit/configs": "workspace:*",
-    "@codemit/shared": "workspace:*",
-    "lint": "^0.8.19",
-    "@codemit/bot-api": "workspace:*"
+    "lint": "^0.8.19"
   }
 }

@@ -1,34 +1,15 @@
+import { showRoutes } from "hono/dev";
 import { serve } from "@hono/node-server";
-import { Hono } from "hono";
+
+
 import configs from "./config";
-import { cors } from "hono/cors";
-import { logger } from "hono/logger";
-import codemitBot from "./service/bot-api";
+import { honoApp } from "./lib";
 
-const app = new Hono();
-
-app.use(cors());
-app.use(logger());
-
-app.get("/", (c) => c.text("Hello World!"));
-
-app.get("/test-bot", async (c) => {
-  configs.DEVS_CHAT_ID.forEach(async (chatId) => {
-    const response = await codemitBot.sendMessage({
-      chatId,
-      text: "Hello World!"
-    });
-    console.log(response);
-  });
-
-  return c.json({
-    message: "Hello World!",
-  });
-});
+showRoutes(honoApp);
 
 serve(
   {
-    fetch: app.fetch,
+    fetch: honoApp.fetch,
     port: configs.PORT,
   },
   (event) => {

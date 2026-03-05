@@ -28,5 +28,5 @@ export const creatorsTable = pgTable("creators", {
 // }));
 
 // types
-export type CreatorInput = typeof creatorsTable.$inferSelect;
+export type CreatorInput = typeof creatorsTable.$inferInsert;
 export type CreatorUpdate = Partial<CreatorInput>;

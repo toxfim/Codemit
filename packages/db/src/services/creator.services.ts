@@ -4,7 +4,7 @@ import db from "../db";
 import { creatorsTable, type CreatorInput } from "../schemas";
 
 class CreatorService {
-  async createOne(payload: Required<CreatorInput>) {
+  async createOne(payload: CreatorInput) {
     const [newCreator] = await db
       .insert(creatorsTable)
       .values(payload)

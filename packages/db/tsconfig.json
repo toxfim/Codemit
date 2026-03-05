@@ -33,6 +33,10 @@
     "rootDir": "./src",
     "outDir": "./dist"
   },
-  "include": ["./src/**/*", "./src/**/*.{mts,ts,json,js,mjs,cjs}"],
+  "include": [
+    "./src/**/*",
+    "./src/**/*.{mts,ts,json,js,mjs,cjs}",
+    "./*.config.ts"
+  ],
   "exclude": ["node_modules"]
 }
