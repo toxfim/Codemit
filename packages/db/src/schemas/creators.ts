@@ -14,10 +14,10 @@ export const creatorsTable = pgTable("creators", {
     .default("FREE")
     .notNull(),
 
-  phone: varchar("phone", { length: 20 }).notNull(),
+  phone: varchar("phone", { length: 20 }).notNull().unique(),
 
   role: Enums.UserRoleEnum().notNull().default("EMPLOYEE"),
-
+  status: Enums.UserStatusEnum().notNull().default("ACTIVE"),
   telegramId: varchar({ length: 255 }),
   ...timestampstz(),
 });

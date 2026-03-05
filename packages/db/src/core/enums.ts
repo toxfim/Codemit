@@ -30,3 +30,4 @@ export const ChatRole = pgEnum("chat_role", CHAT_ROLE);
 
 // Client enums
 export const ClientStatus = pgEnum("client_status", CLIENT_STATUS);
+export const UserStatusEnum = pgEnum("user_status", ["ACTIVE", "INACTIVE", "SUSPENDED"]);

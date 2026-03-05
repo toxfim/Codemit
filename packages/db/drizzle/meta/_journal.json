@@ -15,6 +15,13 @@
       "when": 1772698692966,
       "tag": "0001_petite_excalibur",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772711803729,
+      "tag": "0002_mighty_wraith",
+      "breakpoints": true
     }
   ]
 }

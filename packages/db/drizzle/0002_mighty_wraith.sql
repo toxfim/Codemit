@@ -1,0 +1,1 @@
+ALTER TABLE "creators" ADD CONSTRAINT "creators_phone_unique" UNIQUE("phone");

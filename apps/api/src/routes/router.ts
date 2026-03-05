@@ -1,10 +1,15 @@
 import { Hono } from "hono";
+
 import { healthCheck } from ".";
-import createUser from "./create-user";
+import { clientsRouter } from "./clients/";
+import { creatorsRouter } from "./creators/";
+import { profilesRouter } from "./profiles/";
 
 const appRouter = new Hono();
 
 appRouter.get("/health", healthCheck);
-appRouter.route("/user", createUser);
+appRouter.route("/clients", clientsRouter);
+appRouter.route("/creators", creatorsRouter);
+appRouter.route("/profiles", profilesRouter);
 
 export default appRouter;
