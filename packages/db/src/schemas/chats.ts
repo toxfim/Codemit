@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, serial, text, uuid } from "drizzle-orm/pg-core";
+import { integer, pgTable, text, uuid } from "drizzle-orm/pg-core";
 
 import { Enums, timestampstz } from "../core";
 
@@ -8,7 +8,7 @@ import { clientsTable } from ".";
 export const chatsTable = pgTable("chats", {
   id: uuid().defaultRandom().primaryKey(),
 
-  clientId: serial()
+  clientId: integer()
     .notNull()
     .references(() => clientsTable.id),
   text: text().notNull(),
@@ -25,3 +25,4 @@ export const chatsRelations = relations(chatsTable, ({ one }) => ({
 }));
 
 export type TypeChat = typeof chatsTable.$inferSelect;
+

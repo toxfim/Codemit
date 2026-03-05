@@ -30,7 +30,7 @@
     "noPropertyAccessFromIndexSignature": false,
 
     /* Aliases */
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist"
   },
   "include": [
