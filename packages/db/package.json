@@ -8,6 +8,7 @@
     "generate": "node ./scripts/drizzle.cjs generate",
     "migrate": "node ./scripts/drizzle.cjs migrate",
     "push": "node ./scripts/drizzle.cjs push",
+    "viewdb": "node ./scripts/drizzle.cjs viewdb",
     "typecheck": "tsc --noEmit"
   },
   "exports": {
@@ -34,4 +35,3 @@
     "drizzle-kit": "^0.31.9"
   }
 }
-

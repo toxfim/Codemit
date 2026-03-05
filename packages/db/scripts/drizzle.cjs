@@ -2,11 +2,18 @@ const { spawnSync } = require('node:child_process');
 const path = require('node:path');
 const fs = require('node:fs');
 
-const command = process.argv[2];
-const allowed = new Set(['generate', 'migrate', 'push']);
+const scriptCommand = process.argv[2];
+const commandMap = {
+  generate: 'generate',
+  migrate: 'migrate',
+  push: 'push',
+  viewdb: 'studio',
+};
 
-if (!allowed.has(command)) {
-  console.error(`Unsupported drizzle command: ${command ?? '<empty>'}`);
+const drizzleCommand = commandMap[scriptCommand];
+
+if (!drizzleCommand) {
+  console.error(`Unsupported drizzle command: ${scriptCommand ?? '<empty>'}`);
   process.exit(1);
 }
 
@@ -22,7 +29,7 @@ if (!fs.existsSync(drizzleBin)) {
   process.exit(1);
 }
 
-const result = spawnSync(process.execPath, [drizzleBin, command, `--config=${configPath}`], {
+const result = spawnSync(process.execPath, [drizzleBin, drizzleCommand, `--config=${configPath}`], {
   cwd: pkgDir,
   stdio: 'inherit',
   env: {
