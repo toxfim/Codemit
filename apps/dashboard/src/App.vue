@@ -1,11 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+import DefaultLayout from '@/layouts/default-layout.vue'
+import DashboardLayout from '@/layouts/dashboard-layout.vue'
+
+const route = useRoute()
+
+const layouts = {
+  default: DefaultLayout,
+  dashboard: DashboardLayout,
+}
+
+const currentLayout = computed(() => {
+  return layouts[route.meta.layout as keyof typeof layouts] || DefaultLayout
+})
+</script>
 
 <template>
-  <h1>{{ $t('message.hello') }} pzd</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <component :is="currentLayout">
+    <router-view />
+  </component>
 </template>
-
-<style scoped></style>
