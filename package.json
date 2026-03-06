@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "turbo run dev",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "db:view": "pnpm --filter @codemit/db viewdb",
+    "db:migrate": "pnpm --filter @codemit/db migrate",
+    "db:generate": "pnpm --filter @codemit/db generate"
   },
   "keywords": [],
   "author": "",
