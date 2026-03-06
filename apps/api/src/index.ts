@@ -1,10 +1,7 @@
-import { showRoutes } from "hono/dev";
 import { serve } from "@hono/node-server";
 
 import configs from "./config";
 import { honoApp } from "./lib";
-
-showRoutes(honoApp);
 
 serve(
   {
