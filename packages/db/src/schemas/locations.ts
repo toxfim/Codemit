@@ -1,6 +1,7 @@
+import { relations } from "drizzle-orm";
 import * as PG from "drizzle-orm/pg-core";
 
-import { profileTable } from ".";
+import { profileTable } from "./profile";
 
 export const locationsTable = PG.pgTable("locations", {
   id: PG.serial().primaryKey(),
@@ -16,5 +17,13 @@ export const locationsTable = PG.pgTable("locations", {
   district: PG.varchar({ length: 255 }).notNull(),
   address: PG.text(),
 });
+
+export const locationsRelations = relations(locationsTable, ({ one }) => ({
+  profile: one(profileTable, {
+    fields: [locationsTable.businessId],
+    references: [profileTable.id],
+    relationName: "profileLocations",
+  }),
+}));
 
 export type TypeLocation = typeof locationsTable.$inferSelect;
