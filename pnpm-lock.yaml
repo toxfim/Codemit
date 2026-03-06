@@ -9,7 +9,7 @@ importers:
   .:
     devDependencies:
       turbo:
-        specifier: ^2.8.13
+        specifier: ^2.8.11
         version: 2.8.13
       typescript:
         specifier: ^5.9.3
