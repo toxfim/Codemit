@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "include": ["utils"],
+  "include": ["utils", "api-contracts"],
   "exclude": ["node_modules"]
 }

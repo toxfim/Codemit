@@ -11,11 +11,15 @@
   "author": "Sardor Sattorov",
   "license": "ISC",
   "exports": {
-    "./utils": "./utils/index.ts"
+    "./utils": "./utils/index.ts",
+    "./api-contracts": "./api-contracts/index.ts"
   },
   "packageManager": "pnpm@10.29.3",
   "devDependencies": {
-    "@types/node": "^25.3.1",
-    "@codemit/configs": "workspace:^"
+    "@codemit/configs": "workspace:^",
+    "@types/node": "^25.3.1"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
   }
 }
