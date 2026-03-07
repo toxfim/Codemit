@@ -26,3 +26,12 @@ export const PAYMENT_RESOURCE = [
 export const CHAT_ROLE = ["CLIENT", "SYSTEM", "MANAGER"] as const;
 
 export const CLIENT_STATUS = ["ACTIVE", "INACTIVE"] as const;
+
+export const AUTH_PROVIDER = ["LOCAL", "GOOGLE"] as const;
+
+export const INVITE_STATUS = [
+  "PENDING",
+  "USED",
+  "EXPIRED",
+  "CANCELLED",
+] as const;

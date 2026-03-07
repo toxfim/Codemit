@@ -18,7 +18,8 @@
   },
   "devDependencies": {
     "@codemit/configs": "workspace:^",
+    "@codemit/db": "workspace:*",
     "@codemit/shared": "workspace:^",
-    "@codemit/db": "workspace:*"
+    "@types/node": "^25.3.5"
   }
 }

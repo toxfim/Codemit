@@ -1,6 +1,7 @@
 {
   "extends": "@codemit/configs/tsbase",
   "compilerOptions": {
+    "types": ["node"],
     "paths": {
       "@/bot/*": ["./src/*"]
     },

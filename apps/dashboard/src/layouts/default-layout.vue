@@ -1,4 +1,16 @@
 <script setup lang="ts">
+import {
+  Bell,
+  Bot,
+  BriefcaseBusiness,
+  CalendarCheck,
+  LayoutDashboard,
+  Settings,
+  Sparkles,
+  Users,
+  UserSquare2,
+  Workflow,
+} from 'lucide-vue-next'
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
@@ -7,15 +19,16 @@ import AppHeader from '@/components/app-header.vue'
 const route = useRoute()
 
 const navItems = [
-  { to: '/dashboard', label: 'Dashboard' },
-  { to: '/bookings', label: 'Bookings' },
-  { to: '/services', label: 'Services' },
-  { to: '/creators', label: 'Creators' },
-  { to: '/clients', label: 'Clients' },
-  { to: '/ai-assistant', label: 'AI Assistant' },
-  { to: '/telegram-bot', label: 'Telegram Bot' },
-  { to: '/notifications', label: 'Notifications' },
-  { to: '/settings', label: 'Settings' },
+  { to: '/workspace', label: 'Workspace', icon: BriefcaseBusiness },
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/bookings', label: 'Bookings', icon: CalendarCheck },
+  { to: '/services', label: 'Services', icon: Workflow },
+  { to: '/creators', label: 'Creators', icon: UserSquare2 },
+  { to: '/clients', label: 'Clients', icon: Users },
+  { to: '/ai-assistant', label: 'AI Assistant', icon: Sparkles },
+  { to: '/telegram-bot', label: 'Telegram Bot', icon: Bot },
+  { to: '/notifications', label: 'Notifications', icon: Bell },
+  { to: '/settings', label: 'Settings', icon: Settings },
 ] as const
 
 const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
@@ -34,6 +47,7 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
           class="nav-link"
           active-class="nav-link--active"
         >
+          <component :is="item.icon" class="nav-icon" />
           {{ item.label }}
         </RouterLink>
       </nav>
@@ -89,12 +103,20 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 }
 
 .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   text-decoration: none;
   color: #334155;
   padding: 10px 12px;
   border-radius: 10px;
   font-weight: 500;
   transition: background-color 0.15s ease;
+}
+
+.nav-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .nav-link:hover {

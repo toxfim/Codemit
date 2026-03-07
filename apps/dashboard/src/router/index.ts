@@ -1,9 +1,43 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
+import { getAccessToken } from '@/services/session'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/dashboard',
+    redirect: '/workspace',
+  },
+  {
+    path: '/auth',
+    name: 'auth',
+    component: () => import('@/pages/auth-page.vue'),
+    meta: { layout: 'auth', title: 'Auth', public: true },
+  },
+  {
+    path: '/register',
+    redirect: '/auth?mode=register',
+  },
+  {
+    path: '/login',
+    redirect: '/auth?mode=login',
+  },
+  {
+    path: '/onboarding',
+    name: 'onboarding',
+    component: () => import('@/pages/onboarding-page.vue'),
+    meta: { layout: 'auth', title: 'Onboarding', public: true },
+  },
+  {
+    path: '/workspace',
+    name: 'workspace',
+    component: () => import('@/pages/workspace-page.vue'),
+    meta: { layout: 'default', title: 'Workspace' },
+  },
+  {
+    path: '/business/:businessId',
+    name: 'business',
+    component: () => import('@/pages/business-page.vue'),
+    meta: { layout: 'default', title: 'Business' },
   },
   {
     path: '/dashboard',
@@ -70,4 +104,19 @@ const routes: RouteRecordRaw[] = [
 export const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to) => {
+  const token = getAccessToken()
+  const isPublic = Boolean(to.meta.public)
+
+  if (!isPublic && !token) {
+    return '/login'
+  }
+
+  if (isPublic && token && (to.path === '/auth' || to.path === '/login' || to.path === '/register')) {
+    return '/workspace'
+  }
+
+  return true
 })

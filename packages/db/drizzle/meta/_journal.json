@@ -29,6 +29,13 @@
       "when": 1772881685273,
       "tag": "0003_eager_warstar",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1772904756513,
+      "tag": "0004_breezy_barracuda",
+      "breakpoints": true
     }
   ]
 }

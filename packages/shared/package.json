@@ -11,8 +11,14 @@
   "author": "Sardor Sattorov",
   "license": "ISC",
   "exports": {
-    "./utils": "./utils/index.ts",
-    "./api-contracts": "./api-contracts/index.ts"
+    "./utils": {
+      "types": "./utils/index.ts",
+      "default": "./utils/index.ts"
+    },
+    "./api-contracts": {
+      "types": "./api-contracts/index.ts",
+      "default": "./api-contracts/index.ts"
+    }
   },
   "packageManager": "pnpm@10.29.3",
   "devDependencies": {
