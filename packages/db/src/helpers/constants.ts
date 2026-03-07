@@ -1,4 +1,4 @@
-export const USER_ROLE = ["MANAGER", "EMPLOYEE"] as const;
+export const USER_ROLE = ["MANAGER", "EMPLOYEE", "OWNER"] as const;
 
 export const SUBS_PLAN = ["FREE", "PRO", "BASIC"] as const;
 

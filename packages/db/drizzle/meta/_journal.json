@@ -22,6 +22,13 @@
       "when": 1772711803729,
       "tag": "0002_mighty_wraith",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1772881685273,
+      "tag": "0003_eager_warstar",
+      "breakpoints": true
     }
   ]
 }

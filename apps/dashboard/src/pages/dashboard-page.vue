@@ -1,3 +1,5 @@
+<script lang="ts" setup></script>
+
 <template>
   <section class="page">
     <h1>Dashboard</h1>

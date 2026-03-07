@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "bun run ./src/index.ts",
+    "dev": "bun run --watch ./src/index.ts",
     "build": "tsc",
     "lint": "lint --fix",
     "test": "bun test"
