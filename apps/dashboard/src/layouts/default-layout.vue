@@ -68,15 +68,16 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 <style scoped>
 .layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 248px 1fr;
   min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 .sidebar {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  border-right: 1px solid #e5e7eb;
-  padding: 16px;
+  border-right: 1px solid #e2e8f0;
+  padding: 20px 16px;
   background: #fff;
 }
 
@@ -90,8 +91,10 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 .nav-link {
   text-decoration: none;
   color: #334155;
-  padding: 8px 10px;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
 }
 
 .nav-link:hover {
@@ -99,13 +102,15 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 }
 
 .nav-link--active {
-  background: #e2e8f0;
+  background: #dbeafe;
   color: #0f172a;
   font-weight: 600;
 }
 
 .sidebar-footer {
-  margin-top: 20px;
+  margin-top: 12px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 12px;
 }
 
 .user {
@@ -117,11 +122,13 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 .avatar {
   width: 36px;
   height: 36px;
-  background: #229ed9;
+  background: #0ea5e9;
   color: #fff;
   display: grid;
   place-items: center;
   border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .user p,
@@ -131,7 +138,7 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 
 .main {
   display: grid;
-  grid-template-rows: 70px 1fr;
+  grid-template-rows: 64px 1fr;
 }
 
 .header {
@@ -139,7 +146,9 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e2e8f0;
+  background: rgb(248 250 252 / 75%);
+  backdrop-filter: blur(6px);
 }
 
 .header h2 {
@@ -147,16 +156,17 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 }
 
 .content {
-  padding: 24px;
+  padding: 28px;
   overflow-y: auto;
 }
 
 .notification-btn {
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #fff;
   padding: 8px 12px;
   cursor: pointer;
+  font-weight: 500;
 }
 
 @media (max-width: 960px) {

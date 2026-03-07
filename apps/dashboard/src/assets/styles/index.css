@@ -1,8 +1,29 @@
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
+@import 'tailwindcss';
+
+@theme {
+  --color-background: oklch(0.98 0.002 247.86);
+  --color-foreground: oklch(0.21 0.016 264.53);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.21 0.016 264.53);
+  --color-primary: oklch(0.52 0.121 247.2);
+  --color-primary-foreground: oklch(0.99 0.002 247.85);
+  --color-secondary: oklch(0.94 0.008 247.89);
+  --color-secondary-foreground: oklch(0.34 0.024 264.57);
+  --color-muted: oklch(0.95 0.006 247.89);
+  --color-muted-foreground: oklch(0.56 0.024 264.4);
+  --color-border: oklch(0.89 0.01 247.88);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
 }
