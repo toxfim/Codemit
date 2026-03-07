@@ -17,3 +17,6 @@ export const setSelectedBusinessId = (businessId: string) => {
 
 export const getSelectedBusinessId = () =>
   localStorage.getItem(sessionKeys.selectedBusinessId)
+
+export const clearSelectedBusinessId = () =>
+  localStorage.removeItem(sessionKeys.selectedBusinessId)

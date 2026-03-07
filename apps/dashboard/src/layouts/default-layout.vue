@@ -7,16 +7,21 @@ import {
   LayoutDashboard,
   Settings,
   Sparkles,
+  SwitchCamera,
+  UserCog,
   Users,
   UserSquare2,
   Workflow,
+  LogOut,
 } from 'lucide-vue-next'
 import { computed } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 
 import AppHeader from '@/components/app-header.vue'
+import { clearAccessToken, clearSelectedBusinessId } from '@/services/session'
 
 const route = useRoute()
+const router = useRouter()
 
 const navItems = [
   { to: '/workspace', label: 'Workspace', icon: BriefcaseBusiness },
@@ -32,6 +37,22 @@ const navItems = [
 ] as const
 
 const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
+
+const goToProfileSettings = async () => {
+  await router.push('/settings')
+}
+
+const switchAccount = async () => {
+  clearAccessToken()
+  clearSelectedBusinessId()
+  await router.push('/auth?mode=login&switch=1')
+}
+
+const logout = async () => {
+  clearAccessToken()
+  clearSelectedBusinessId()
+  await router.push('/auth?mode=login')
+}
 </script>
 
 <template>
@@ -59,6 +80,21 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
             <p>John Doe</p>
             <small>Business Owner</small>
           </div>
+        </div>
+
+        <div class="user-actions">
+          <button class="user-action-btn" type="button" @click="goToProfileSettings">
+            <UserCog class="user-action-icon" />
+            Profile settings
+          </button>
+          <button class="user-action-btn" type="button" @click="switchAccount">
+            <SwitchCamera class="user-action-icon" />
+            Switch account
+          </button>
+          <button class="user-action-btn user-action-btn--danger" type="button" @click="logout">
+            <LogOut class="user-action-icon" />
+            Logout
+          </button>
         </div>
       </footer>
     </aside>
@@ -133,6 +169,8 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
   margin-top: 12px;
   border-top: 1px solid #e2e8f0;
   padding-top: 12px;
+  display: grid;
+  gap: 10px;
 }
 
 .user {
@@ -156,6 +194,44 @@ const pageTitle = computed(() => (route.meta.title as string) || 'Dashboard')
 .user p,
 .user small {
   margin: 0;
+}
+
+.user-actions {
+  display: grid;
+  gap: 6px;
+}
+
+.user-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #fff;
+  padding: 8px 10px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.user-action-btn:hover {
+  background: #f8fafc;
+}
+
+.user-action-btn--danger {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.user-action-btn--danger:hover {
+  background: #fff1f2;
+}
+
+.user-action-icon {
+  width: 14px;
+  height: 14px;
 }
 
 .main {
