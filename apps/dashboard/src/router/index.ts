@@ -31,67 +31,67 @@ const routes: RouteRecordRaw[] = [
     path: '/workspace',
     name: 'workspace',
     component: () => import('@/pages/workspace-page.vue'),
-    meta: { layout: 'default', title: 'Workspace' },
+    meta: { layout: 'default', title: 'Workspace', requiresAuth: true },
   },
   {
     path: '/business/:businessId',
     name: 'business',
     component: () => import('@/pages/business-page.vue'),
-    meta: { layout: 'default', title: 'Business' },
+    meta: { layout: 'default', title: 'Business', requiresAuth: true },
   },
   {
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/pages/dashboard-page.vue'),
-    meta: { layout: 'default', title: 'Dashboard' },
+    meta: { layout: 'default', title: 'Dashboard', requiresAuth: true },
   },
   {
     path: '/bookings',
     name: 'bookings',
     component: () => import('@/pages/bookings-page.vue'),
-    meta: { layout: 'default', title: 'Bookings' },
+    meta: { layout: 'default', title: 'Bookings', requiresAuth: true },
   },
   {
     path: '/creators',
     name: 'creators',
     component: () => import('@/pages/creators-page.vue'),
-    meta: { layout: 'default', title: 'Creators' },
+    meta: { layout: 'default', title: 'Creators', requiresAuth: true },
   },
   {
     path: '/services',
     name: 'services',
     component: () => import('@/pages/services-page.vue'),
-    meta: { layout: 'default', title: 'Services' },
+    meta: { layout: 'default', title: 'Services', requiresAuth: true },
   },
   {
     path: '/clients',
     name: 'clients',
     component: () => import('@/pages/clients-page.vue'),
-    meta: { layout: 'default', title: 'Clients' },
+    meta: { layout: 'default', title: 'Clients', requiresAuth: true },
   },
   {
     path: '/ai-assistant',
     name: 'ai-assistant',
     component: () => import('@/pages/ai-assistant-page.vue'),
-    meta: { layout: 'default', title: 'AI Assistant' },
+    meta: { layout: 'default', title: 'AI Assistant', requiresAuth: true },
   },
   {
     path: '/telegram-bot',
     name: 'telegram-bot',
     component: () => import('@/pages/telegram-bot-page.vue'),
-    meta: { layout: 'default', title: 'Telegram Bot' },
+    meta: { layout: 'default', title: 'Telegram Bot', requiresAuth: true },
   },
   {
     path: '/notifications',
     name: 'notifications',
     component: () => import('@/pages/notifications-page.vue'),
-    meta: { layout: 'default', title: 'Notifications' },
+    meta: { layout: 'default', title: 'Notifications', requiresAuth: true },
   },
   {
     path: '/settings',
     name: 'settings',
     component: () => import('@/pages/settings-page.vue'),
-    meta: { layout: 'default', title: 'Settings' },
+    meta: { layout: 'default', title: 'Settings', requiresAuth: true },
   },
   {
     path: '/:pathMatch(.*)*',
@@ -109,9 +109,10 @@ export const router = createRouter({
 router.beforeEach((to) => {
   const token = getAccessToken()
   const isPublic = Boolean(to.meta.public)
+  const requiresAuth = Boolean(to.meta.requiresAuth)
 
-  if (!isPublic && !token) {
-    return '/login'
+  if (requiresAuth && !token) {
+    return '/auth?mode=login'
   }
 
   if (isPublic && token && (to.path === '/auth' || to.path === '/login' || to.path === '/register')) {
