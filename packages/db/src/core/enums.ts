@@ -2,14 +2,13 @@ import { pgEnum } from "drizzle-orm/pg-core";
 import {
   CHAT_ROLE,
   CLIENT_STATUS,
+  MEMBERS_ROLE,
   PAYMENT_RESOURCE,
   PAYMENT_STATUS,
   PAYMENT_TYPE,
   STATUS_BUSINESS_PROFILE,
   SUBS_PLAN,
-  INVITE_STATUS,
-  USER_ROLE,
-  USER_TYPES,
+  SYSTEM_ROLE,
 } from "../helpers/constants";
 
 // Business profile enums
@@ -25,8 +24,6 @@ export const PaymentResource = pgEnum("payment_resource", PAYMENT_RESOURCE);
 
 // User enums
 export const SubscriptionPlanEnum = pgEnum("subscription_plan", SUBS_PLAN);
-export const UserRoleEnum = pgEnum("user_role", USER_ROLE);
-export const UserTypeEnum = pgEnum("user_type", USER_TYPES);
 
 // Chat and client enums
 export const ChatRole = pgEnum("chat_role", CHAT_ROLE);
@@ -39,5 +36,5 @@ export const UserStatusEnum = pgEnum("user_status", [
   "SUSPENDED",
 ]);
 
-// Invite enums
-export const InviteStatusEnum = pgEnum("invite_status", INVITE_STATUS);
+export const MembersRole = pgEnum("members_role", MEMBERS_ROLE);
+export const UserSystemRole = pgEnum("user_system_role", SYSTEM_ROLE);

@@ -1,13 +1,12 @@
 import { relations } from "drizzle-orm";
 import * as PG from "drizzle-orm/pg-core";
-
-import { profileTable } from "./profile";
+import { membersTable } from "./members";
 
 export const locationsTable = PG.pgTable("locations", {
   id: PG.serial().primaryKey(),
 
   businessId: PG.uuid()
-    .references(() => profileTable.id)
+    .references(() => membersTable.id)
     .notNull(),
 
   lat: PG.doublePrecision().notNull(),
@@ -19,9 +18,9 @@ export const locationsTable = PG.pgTable("locations", {
 });
 
 export const locationsRelations = relations(locationsTable, ({ one }) => ({
-  profile: one(profileTable, {
+  profile: one(membersTable, {
     fields: [locationsTable.businessId],
-    references: [profileTable.id],
+    references: [membersTable.id],
     relationName: "profileLocations",
   }),
 }));

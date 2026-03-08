@@ -1,4 +1,4 @@
-export const USER_ROLE = ["MANAGER", "EMPLOYEE", "OWNER"] as const;
+export const MEMBERS_ROLE = ["MANAGER", "EMPLOYEE", "OWNER"] as const;
 
 export const SUBS_PLAN = ["FREE", "PRO", "BASIC"] as const;
 
@@ -34,4 +34,4 @@ export const INVITE_STATUS = [
   "CANCELLED",
 ] as const;
 
-export const USER_TYPES = ["ADMIN", ...USER_ROLE] as const;
+export const SYSTEM_ROLE = ["ADMIN", "USER"] as const;
