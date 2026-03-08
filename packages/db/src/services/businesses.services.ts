@@ -17,6 +17,10 @@ class BusinessesService {
     );
   }
 
+  async listAll() {
+    return db.select().from(businessesTable);
+  }
+
   async updateOneById(id: string, payload: Partial<BusinessInsert>) {
     const [business] = await db
       .update(businessesTable)

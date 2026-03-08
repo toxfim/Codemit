@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { fetchWorkspaces } from '@/services/workspace'
-import { setSelectedBusinessId } from '@/services/session'
 
 type WorkspaceItem = {
   membershipId: string
@@ -23,7 +22,6 @@ const loading = ref(true)
 const error = ref('')
 
 const openBusiness = async (businessId: string) => {
-  setSelectedBusinessId(businessId)
   await router.push(`/business/${businessId}`)
 }
 

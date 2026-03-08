@@ -4,14 +4,12 @@ import { useRoute } from 'vue-router'
 
 import DefaultLayout from '@/layouts/default-layout.vue'
 import DashboardLayout from '@/layouts/dashboard-layout.vue'
-import AuthLayout from '@/layouts/auth-layout.vue'
 
 const route = useRoute()
 
 const layouts = {
   default: DefaultLayout,
   dashboard: DashboardLayout,
-  auth: AuthLayout,
 }
 
 const currentLayout = computed(() => {
