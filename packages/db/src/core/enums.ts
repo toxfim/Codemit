@@ -10,6 +10,7 @@ import {
   AUTH_PROVIDER,
   INVITE_STATUS,
   USER_ROLE,
+  MEMBERSHIP_ROLE,
 } from "../helpers/constants";
 
 // Business profile enums
@@ -23,17 +24,24 @@ export const PaymentStatus = pgEnum("payment_status", PAYMENT_STATUS);
 export const PaymentType = pgEnum("payment_type", PAYMENT_TYPE);
 export const PaymentResource = pgEnum("payment_resource", PAYMENT_RESOURCE);
 
-// User enums
 export const SubscriptionPlanEnum = pgEnum("subscription_plan", SUBS_PLAN);
-export const UserRoleEnum = pgEnum("user_role", USER_ROLE);
+// User enums
+export const UserSystemRole = pgEnum("user_role", USER_ROLE);
 
 // Chat and client enums
 export const ChatRole = pgEnum("chat_role", CHAT_ROLE);
 
 // Client enums
 export const ClientStatus = pgEnum("client_status", CLIENT_STATUS);
-export const UserStatusEnum = pgEnum("user_status", ["ACTIVE", "INACTIVE", "SUSPENDED"]);
+export const UserStatusEnum = pgEnum("user_status", [
+  "ACTIVE",
+  "INACTIVE",
+  "DELETED",
+]);
 
 // Auth / invite enums
 export const AuthProviderEnum = pgEnum("auth_provider", AUTH_PROVIDER);
 export const InviteStatusEnum = pgEnum("invite_status", INVITE_STATUS);
+
+// Membership enums
+export const MembershipRole = pgEnum("membership_role", MEMBERSHIP_ROLE);
