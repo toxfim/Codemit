@@ -3,7 +3,6 @@ import { Hono } from "hono";
 import {
   businessMembershipsService,
   invitesService,
-  userSessionsService,
   usersService,
 } from "@codemit/db/services";
 
@@ -13,7 +12,7 @@ import {
   completeOnboardingSchema,
 } from "../../validation/invites";
 import { generateToken, hashPassword, hashToken } from "../../utils/security";
-import { expireInviteIfNeeded } from "../../service/auth-flow";
+import { expireInviteIfNeeded } from "../../service/invite-flow";
 
 const invitesRouter = new Hono();
 
@@ -89,7 +88,7 @@ invitesRouter.post(
     return ctx.json({
       status: "success",
       data: {
-        onboardingUrl: `${configs.DASHBOARD_URL}/onboarding?token=${onboardingRawToken}`,
+        onboardingUrl: `${configs.DASHBOARD_URL}/workspace`,
         inviteId: updatedInvite.id,
         businessId: updatedInvite.businessId,
       },
@@ -152,22 +151,11 @@ invitesRouter.post(
 
     const usedInvite = await invitesService.markUsed(normalizedInvite.id);
 
-    const accessToken = generateToken(32);
-    const expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
-
-    await userSessionsService.createOne({
-      userId: user.id,
-      tokenHash: hashToken(accessToken),
-      expiresAt,
-    });
-
     return ctx.json({
       status: "success",
       data: {
         user,
         invite: usedInvite,
-        accessToken,
-        expiresAt,
       },
     });
   },

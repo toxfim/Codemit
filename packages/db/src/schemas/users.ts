@@ -1,17 +1,27 @@
-import { uuid, varchar, text, pgTable } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import * as PG from "drizzle-orm/pg-core";
 
 import { Enums, timestampstz } from "../core";
 
-export const usersTable = pgTable("users", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  email: varchar("email", { length: 255 }).unique(),
-  fullName: varchar("full_name", { length: 255 }).notNull(),
-  passwordHash: varchar("password_hash", { length: 255 }),
-  telegramId: varchar("telegram_id", { length: 64 }).unique(),
-  avatarUrl: text("avatar_url"),
-  status: Enums.UserStatusEnum("status").default("ACTIVE").notNull(),
+import { membersTable } from "./members";
+import { sessionTable } from "./sessions";
+import { businessesTable } from "./businesses";
+
+export const usersTable = PG.pgTable("users", {
+  id: PG.serial().primaryKey().notNull(),
+  email: PG.varchar({ length: 255 }).notNull().unique(),
+  passwordHash: PG.varchar({ length: 255 }).notNull(),
+  name: PG.varchar({ length: 255 }).notNull(),
+  avatar: PG.varchar({ length: 255 }),
+  systemRole: Enums.UserSystemRole().notNull().default("USER"),
   ...timestampstz(),
 });
 
-export type UserInsert = typeof usersTable.$inferInsert;
-export type UserSelect = typeof usersTable.$inferSelect;
+export const usersRelations = relations(usersTable, ({ many }) => ({
+  ownedBusinesses: many(businessesTable),
+  businessMembers: many(membersTable),
+  sessions: many(sessionTable),
+}));
+
+export type TypeUser = typeof usersTable.$inferSelect;
+export type TypeInsertUser = typeof usersTable.$inferInsert;

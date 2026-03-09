@@ -3,24 +3,15 @@ import { Hono } from "hono";
 import { businessesService, invitesService } from "@codemit/db/services";
 
 import configs from "../../config";
-import { authMiddleware, getAuth, getMembership, requireRole } from "../../middlewares/auth";
 import { createInviteSchema } from "../../validation/invites";
-import { updateBusinessSchema } from "../../validation/auth";
+import { updateBusinessSchema } from "../../validation/businesses";
 import { generateToken, hashToken } from "../../utils/security";
-import { expireInviteIfNeeded } from "../../service/auth-flow";
+import { expireInviteIfNeeded } from "../../service/invite-flow";
 
 const businessesRouter = new Hono();
 
-businessesRouter.use("*", authMiddleware);
-
 businessesRouter.get("/:businessId", async (ctx) => {
   const { businessId } = ctx.req.param();
-  const membership = await getMembership(ctx, businessId);
-
-  if (!membership) {
-    return ctx.json({ status: "error", message: "Workspace access denied" }, 403);
-  }
-
   const business = await businessesService.findById(businessId);
 
   if (!business) {
@@ -31,19 +22,15 @@ businessesRouter.get("/:businessId", async (ctx) => {
     status: "success",
     data: {
       business,
-      membership,
+      membership: {
+        role: "OWNER",
+      },
     },
   });
 });
 
 businessesRouter.patch("/:businessId", zValidator("json", updateBusinessSchema), async (ctx) => {
   const { businessId } = ctx.req.param();
-  const membership = await getMembership(ctx, businessId);
-
-  if (!membership || !requireRole("MANAGER", membership.role)) {
-    return ctx.json({ status: "error", message: "Insufficient permissions" }, 403);
-  }
-
   const payload = ctx.req.valid("json");
 
   const updated = await businessesService.updateOneById(businessId, payload);
@@ -57,12 +44,6 @@ businessesRouter.patch("/:businessId", zValidator("json", updateBusinessSchema),
 
 businessesRouter.get("/:businessId/invites", async (ctx) => {
   const { businessId } = ctx.req.param();
-  const membership = await getMembership(ctx, businessId);
-
-  if (!membership || !requireRole("MANAGER", membership.role)) {
-    return ctx.json({ status: "error", message: "Insufficient permissions" }, 403);
-  }
-
   const invites = await invitesService.listByBusinessId(businessId);
 
   const normalized = await Promise.all(
@@ -80,11 +61,10 @@ businessesRouter.post(
   zValidator("json", createInviteSchema),
   async (ctx) => {
     const { businessId } = ctx.req.param();
-    const { userId } = getAuth(ctx);
-    const membership = await getMembership(ctx, businessId);
+    const business = await businessesService.findById(businessId);
 
-    if (!membership || !requireRole("MANAGER", membership.role)) {
-      return ctx.json({ status: "error", message: "Insufficient permissions" }, 403);
+    if (!business) {
+      return ctx.json({ status: "error", message: "Business not found" }, 404);
     }
 
     const payload = ctx.req.valid("json");
@@ -95,13 +75,13 @@ businessesRouter.post(
     );
 
     const invite = await invitesService.createOne({
-        businessId,
-        invitedByUserId: userId,
-        role: payload.role,
-        tokenHash,
-        expiresAt,
-        status: "PENDING",
-      });
+      businessId,
+      invitedByUserId: business.ownerUserId,
+      role: payload.role,
+      tokenHash,
+      expiresAt,
+      status: "PENDING",
+    });
 
     if (!invite) {
       return ctx.json({ status: "error", message: "Failed to create invite" }, 500);
@@ -123,11 +103,6 @@ businessesRouter.post(
 
 businessesRouter.post("/:businessId/invites/:inviteId/cancel", async (ctx) => {
   const { businessId, inviteId } = ctx.req.param();
-  const membership = await getMembership(ctx, businessId);
-
-  if (!membership || !requireRole("MANAGER", membership.role)) {
-    return ctx.json({ status: "error", message: "Insufficient permissions" }, 403);
-  }
 
   const invite = await invitesService.cancelByBusinessAndId(businessId, inviteId);
 

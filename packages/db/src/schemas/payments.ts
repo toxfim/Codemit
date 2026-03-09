@@ -3,14 +3,13 @@ import { timestamp } from "drizzle-orm/pg-core";
 import { pgTable, uuid, integer } from "drizzle-orm/pg-core";
 
 import { Enums, timestampstz } from "../core";
-
-import { creatorsTable } from ".";
+import { businessMembersTable } from "./members";
 
 export const paymentsTable = pgTable("payments", {
   id: uuid().defaultRandom().primaryKey(),
 
   userId: integer()
-    .references(() => creatorsTable.id)
+    .references(() => businessMembersTable.id)
     .notNull(),
 
   status: Enums.PaymentStatus().notNull().default("IN_PROGRESS"),
@@ -22,9 +21,9 @@ export const paymentsTable = pgTable("payments", {
 });
 
 export const paymentsRelations = relations(paymentsTable, ({ one }) => ({
-  user: one(creatorsTable, {
+  user: one(businessMembersTable, {
     fields: [paymentsTable.userId],
-    references: [creatorsTable.id],
+    references: [businessMembersTable.id],
   }),
 }));
 

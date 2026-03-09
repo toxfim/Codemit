@@ -5,8 +5,6 @@ export { default as profileService } from "./profile.services";
 export { default as locationsService } from "./locations.services";
 export { default as paymentsService } from "./payments.services";
 export { default as usersService } from "./users.services";
-export { default as authAccountsService } from "./auth-accounts.services";
-export { default as userSessionsService } from "./user-sessions.services";
 export { default as businessesService } from "./businesses.services";
 export { default as businessMembershipsService } from "./business-memberships.services";
 export { default as invitesService } from "./invites.services";
