@@ -1,6 +1,6 @@
 import * as PG from "drizzle-orm/pg-core";
 
-import { Enums, timestampstz } from "../core";
+import { timestampstz, UserStatusEnum, UserSystemRole } from "../core";
 
 export const usersTable = PG.pgTable("users", {
   id: PG.uuid().primaryKey().notNull().defaultRandom(),
@@ -9,8 +9,8 @@ export const usersTable = PG.pgTable("users", {
   hashedPassword: PG.text(),
 
   name: PG.text().notNull(),
-  systemRole: Enums.UserSystemRole().notNull().default("USER"),
-  status: Enums.UserStatusEnum().notNull().default("ACTIVE"),
+  systemRole: UserSystemRole().notNull().default("USER"),
+  status: UserStatusEnum().notNull().default("ACTIVE"),
 
   ...timestampstz(),
 });

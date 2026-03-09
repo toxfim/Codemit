@@ -1,6 +1,6 @@
 import * as PG from "drizzle-orm/pg-core";
 
-import { Enums, timestampstz } from "../core";
+import { AuthProviderEnum, timestampstz } from "../core";
 
 import { usersTable } from "./users.schema";
 
@@ -11,7 +11,7 @@ export const accountsTable = PG.pgTable("accounts", {
     .notNull()
     .references(() => usersTable.id, { onDelete: "cascade" }),
 
-  provider: Enums.AuthProviderEnum().notNull().default("GOOGLE"),
+  provider: AuthProviderEnum().notNull().default("GOOGLE"),
 
   ...timestampstz(),
 });

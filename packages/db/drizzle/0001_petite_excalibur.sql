@@ -1,1 +1,0 @@
-ALTER TABLE "chats" ALTER COLUMN "clientId" SET DATA TYPE integer;

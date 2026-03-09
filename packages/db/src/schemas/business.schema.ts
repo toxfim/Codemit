@@ -1,6 +1,6 @@
 import * as PG from "drizzle-orm/pg-core";
 
-import { Enums, timestampstz } from "../core";
+import { BusinessProfileStatus, timestampstz } from "../core";
 
 import { usersTable } from "./users.schema";
 
@@ -13,7 +13,7 @@ export const businessTable = PG.pgTable("business", {
 
   name: PG.text().notNull(),
   description: PG.text(),
-  status: Enums.BusinessProfileStatus().notNull().default("ACTIVE"),
+  status: BusinessProfileStatus().notNull().default("ACTIVE"),
   aiFaq: PG.text(),
   ...timestampstz(),
 });
