@@ -7,7 +7,7 @@ import { usersTable } from "./users.schema";
 export const accountsTable = PG.pgTable("accounts", {
   id: PG.uuid("id").primaryKey().notNull().defaultRandom(),
 
-  userId: PG.integer()
+  userId: PG.uuid()
     .notNull()
     .references(() => usersTable.id, { onDelete: "cascade" }),
 
